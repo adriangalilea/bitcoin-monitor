@@ -1,0 +1,61 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "bitcoin-monitor"
+version = "0.1.0"
+description = "A simple Bitcoin address monitoring tool"
+authors = ["Adrian Galilea <adriangalilea@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/adriangalilea/bitcoin-monitor"
+packages = [
+    {include = "bitcoin_monitor"},
+    {include = "bitcoin_monitor/core"}
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8.1, <4.0"
+bit = ">=0.8.0"
+fastapi = ">=0.68.0"
+uvicorn = ">=0.15.0"
+pydantic = ">=1.8.0"
+backoff = ">=2.2.1"
+rich = ">=13.9.0"
+supervisor = "^4.2.5"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.0"
+flake8 = "^6.0"
+ruff = "^0.11.2"
+
+[tool.poetry.urls]
+"Homepage" = "https://github.com/adriangalilea/bitcoin-monitor"
+"Bug Tracker" = "https://github.com/adriangalilea/bitcoin-monitor/issues"
+
+[tool.poetry.scripts]
+bitcoin-monitor = "bitcoin_monitor.cli:main"
+bitcoin-supervisor = "examples.supervisor.supervisor_helper:main"
+"bitcoin-supervisor start" = "examples.supervisor.supervisor_helper:start"
+"bitcoin-supervisor stop" = "examples.supervisor.supervisor_helper:stop"
+"bitcoin-supervisor status" = "examples.supervisor.supervisor_helper:status"
+"bitcoin-supervisor logs" = "examples.supervisor.supervisor_helper:logs"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203"
+exclude = [".git", "__pycache__", "dist", "build"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py38"
+exclude = [".git", "__pycache__", "dist", "build"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E203", "E402", "E501"]
